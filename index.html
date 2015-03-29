@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="phonecatApp">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Contact list</title>
+		<link rel="apple-touch-icon" href="contact-list.png">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script language="javascript" type="text/javascript" src="https://code.angularjs.org/1.2.19/angular.min.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script language="javascript" type="text/javascript" src="script.js" charset="UTF-8"></script>
+		<style>
+			.bs-callout+.bs-callout {
+			margin-top: -5px;
+			}
+			.bs-callout {
+			padding: 2px;
+			margin: 2px 0;
+			border: 1px solid #eee;
+			border-left-width: 5px;
+			border-radius: 3px;
+			font-size: 15px;
+			}
+			.icon-spacer {
+				margin: 0px 3px 0px 3px;
+			}
+			.media {
+				margin: 0px;
+			}
+			.navbar-form {
+				padding: 0px 0px;
+			}
+			ul {
+				list-style-type: none;
+				padding-left: 5px;
+			}
+			body { padding-top: 70px; }
+		</style>
+	</head>
+	<body ng-controller="PhoneListCtrl">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="container">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <div class="col-xs-5 col-sm-3 pull-left">
+				<form class="navbar-form" role="search">
+				  <div class="input-group">
+					<input type="search" class="form-control" autocorrect="off" ng-model="search" required ng-minlength="3" placeholder="Rechercher...">
+				  </div>
+				</form>
+			  </div>
+			<div class="navbar-collapse collapse">
+			  <ul class="nav navbar-nav navbar-right">
+				<li><a href="/">Accueil</a></li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+		<div class="container">
+			<ul>
+				<li ng-repeat="contact in names | filter:filterBySearch">
+					<div class="bs-callout bs-callout-warning media-body">
+						<h4>{{contact.name}}</h4>
+						<div class="media">
+							<div class="pull-left icon-spacer"><i class="glyphicon glyphicon-pushpin"></i></div>
+							<div class="media-body">{{contact.city}}</div>
+						</div>
+						<div class="media" ng-show="{{contact.email.length}}">
+							<div class="pull-left icon-spacer"><i class="glyphicon glyphicon-envelope"></i></div>
+							<div class="media-body">
+							<div ng-bind-html="deliberatelyTrustDangerousSnippet('{{contact.email}}')"></div>
+							</div>
+						</div>
+						<div class="media" ng-show="{{contact.phone.length}}">
+							<div class="pull-left icon-spacer"><i class="glyphicon glyphicon-phone-alt"></i></div>
+							<div class="media-body"><a href="tel:{{contact.phone}}">{{contact.phone}}</a></div>
+						</div>
+						<div class="media" ng-show="{{contact.faxphone.length}}">
+							<div class="pull-left icon-spacer"><i class="glyphicon glyphicon-print"></i></div>
+							<div class="media-body">{{contact.faxphone}}</div>
+						</div>
+						<div class="media" ng-show="{{contact.cellphone.length}}">
+							<div class="pull-left icon-spacer"><i class="glyphicon glyphicon-phone"></i></div>
+							<div class="media-body"><a href="tel:{{contact.cellphone}}">{{contact.cellphone}}</a></div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="bs-callout bs-callout-warning media-body">
+						<h4>Inscrivez 3 caractères pour débuter votre recherche.</h4>
+						<h5>copyleft JDownloader</h5>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
